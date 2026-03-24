@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Gerenciador</title>
+    <link rel="stylesheet" href="/Css/Style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/produtos">Produtos</a></li>
+            <li><a href="/sobre">Sobre</a></li>
+            <li><a href="/contato">Contato</a></li>
+        </ul>
+    </nav>
+
+<div class="container">
+    <h1>Gerenciamento de Produtos</h1>
+
+    <div class="form-section">
+        <h2>Adicionar Novo Produto</h2>
+        <form action="/produtos" method="POST">
+            <input type="text" name="product_name" placeholder="Nome do Produto" required>
+            <input type="number" name="preco" step="0.01" placeholder="Preço" required>
+            <button type="submit" class="btn-success">Adicionar Produto</button>
+        </form>
+    </div>
+
+<div class="products-section">
+    <h2>Produtos Cadastrados</h2>
+    <% if (products.length === 0) { %>
+        <p>Nenhum produto cadastrado. <a href="/produtos">Adicione um novo!</a></p>
+    <% } else { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td><%= product.id %></td>
+                        <td><%= product.product_name %></td>
+                        <td>R$ <%= parseFloat(product.preco).toFixed(2) %></td>
+                        <td>
+                            <a href="/produtos/<%= product.id %>/deletar" class="btn-delete" onclick="return confirm('Tem certeza que deseja deletar?')">Deletar</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</div>
+</div>
+
+<footer>
+    <p>&copy; 2024 - Gerenciador de Produtos</p>
+</footer>
+</body>
+</html>
