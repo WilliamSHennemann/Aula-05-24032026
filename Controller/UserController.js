@@ -8,9 +8,18 @@ exports.getProducts = (req, res) => {
    res.render("produto", { products });
 };
 
+exports.getProductbyId = (req, res) => {
+   const idProduct = req.params.id;
+   products.forEach(product => {
+      if (product.id === parseInt(idProduct)) {
+         res.render("produtoDetalhes", { product });
+      }
+    });
+};
+
 exports.createProduct = (req, res) => {
    const { product_name, preco } = req.body;
-   const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+   const newId = products.length + 1;
    const newProduct = new Product(newId, product_name, preco);
    products.push(newProduct);
    res.redirect("/produtos");
